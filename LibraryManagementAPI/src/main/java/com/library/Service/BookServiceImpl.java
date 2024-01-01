@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.library.Model.Book;
@@ -41,11 +42,26 @@ public class BookServiceImpl implements BookService {
 		return null;
 	}
 
+//	@Override
+//	public boolean deleteBook(Long id) {
+//		boolean a = bookRepository.deleteById(id);
+//	
+//	   if(a) {
+//		   return true;
+//	   }else {
+//		   return false;
+//	   }
+//	}
 	@Override
 	public boolean deleteBook(Long id) {
-		bookRepository.deleteById(id);
-		return false;
+	    try {
+	        bookRepository.deleteById(id);
+	        return true; // Deletion succeeded
+	    } catch (EmptyResultDataAccessException ex) {
+	        return false; // Book with given id not found
+	    }
 	}
+
 
 	@Override
 	public double calculateTotalCharge(Long id) {

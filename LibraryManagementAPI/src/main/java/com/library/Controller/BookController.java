@@ -39,28 +39,45 @@ public class BookController {
 	}
 
 	@PutMapping("/{id}")
-	public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
-		return bookService.updateBook(id, book);
+	public ResponseEntity<?> updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+		Book existingBook = bookService.getBookById(id);
+
+		if (existingBook == null) {
+			return new ResponseEntity<>("Book Not Found", HttpStatus.NOT_FOUND);
+		}
+
+		// Update the fields you want to modify
+		existingBook.setTitle(updatedBook.getTitle());
+		existingBook.setAuthor(updatedBook.getAuthor());
+		existingBook.setIssuanceDate(updatedBook.getIssuanceDate());
+		existingBook.setReturnDate(updatedBook.getReturnDate());
+
+		// Save the updated book
+		Book updatedBookResult = bookService.updateBook(id, existingBook);
+
+		if (updatedBookResult != null) {
+			return new ResponseEntity<>(updatedBookResult, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed to update book", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteBook(@PathVariable Long id) {
-		bookService.deleteBook(id);
-		System.out.println("Deleted Successfully");
-	}
-	
-	
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<String> deleteBook(@PathVariable Long id) {
-//	    boolean isDeleted = bookService.deleteBook(id);
-//	    if (isDeleted) {
-//	        return ResponseEntity.ok("Book with ID " + id + " deleted successfully.");
-//	    } else {
-//	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book with ID " + id + " Not deleted ");
-//	    }
-//	}
+	public ResponseEntity<String> deleteBook(@PathVariable Long id) {
+		try {
+			boolean isDeleted = bookService.deleteBook(id);
 
-  // this method is not working properly i don't know why it is not working .
+			if (isDeleted) {
+				return new ResponseEntity<>("Book deleted successfully", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Book not found", HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error deleting book: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// this method is not working properly i don't know why it is not working .
 	@GetMapping("/{id}/calculate-charge")
 	public double calculateTotalCharge(@PathVariable Long id) {
 		return bookService.calculateTotalCharge(id);
