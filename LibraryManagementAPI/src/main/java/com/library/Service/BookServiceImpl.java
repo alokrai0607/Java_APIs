@@ -42,9 +42,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBook(Long id) {
+	public boolean deleteBook(Long id) {
 		bookRepository.deleteById(id);
-		System.out.println(id + "no content deleted Sucessfully");
+		return false;
 	}
 
 	@Override

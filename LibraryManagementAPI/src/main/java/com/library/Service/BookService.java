@@ -14,7 +14,7 @@ public interface BookService {
 
 	Book updateBook(Long id, Book book);
 
-	void deleteBook(Long id);
+	boolean deleteBook(Long id);
 
 	double calculateTotalCharge(Long id);
 }
