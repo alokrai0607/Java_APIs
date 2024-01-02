@@ -1,12 +1,12 @@
-package com.project.Service;
+package com.product.Service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.Model.Product;
-import com.project.Repository.ProductRepository;
+import com.product.Model.Product;
+import com.product.Repository.ProductRepository;
 
 @Service
 public class productServiceImpl implements ProductService {

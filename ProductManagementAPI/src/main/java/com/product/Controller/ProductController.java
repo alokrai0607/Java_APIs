@@ -1,4 +1,4 @@
-package com.project.Controller;
+package com.product.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.Model.Product;
-import com.project.Service.ProductService;
+import com.product.Model.Product;
+import com.product.Service.ProductService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
