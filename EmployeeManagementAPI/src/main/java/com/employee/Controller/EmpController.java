@@ -32,18 +32,18 @@ public class EmpController {
 		return new ResponseEntity<>(empService.getAllEmployee(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/employee/{id}")
+	@GetMapping("/employee/{EmpId}")
 	public ResponseEntity<?> getEmployeeById(@PathVariable Integer EmpId){
 		return new ResponseEntity<>(empService.getEmployeeById(EmpId),HttpStatus.OK);
 	}
 	
 	
-	@DeleteMapping("/deleteemployee/{id}")
+	@DeleteMapping("/deleteemployee/{EmpId}")
 	public ResponseEntity<?> deleteEmpById(@PathVariable Integer EmpId){
 		return new ResponseEntity<>(empService.DeleteEmployeeById(EmpId),HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateProduct/{id}")
+	@PutMapping("/updatemployee/{EmpId}")
 	public ResponseEntity<?> updateEmployeeDetail(@PathVariable Integer EmpId , @RequestBody Employee employee){
 		Employee exEmp = empService.getEmployeeById(EmpId);
 		

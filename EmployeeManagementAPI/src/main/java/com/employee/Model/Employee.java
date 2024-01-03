@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -13,27 +15,19 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer EmpId;
 
-	@NotEmpty(message = "Employee Name is Mandatory")
 	private String EmpName;
 
-	@NotEmpty(message = "Employee Department is Manedetory")
 	private String EmpDepartment;
 
-	@NotEmpty(message = "Employee Address is Manedetory")
 	private String EmpAddress;
 
-	@NotEmpty(message = "Employee Contact is Manedetory")
-	@Size(min = 10, max = 10)
 	private String EmpCONO;
 
 	public Employee() {
 		super();
 	}
 
-	public Employee(Integer empId, @NotEmpty(message = "Employee Name is Mandatory") String empName,
-			@NotEmpty(message = "Employee Department is Manedetory") String empDepartment,
-			@NotEmpty(message = "Employee Address is Manedetory") String empAddress,
-			@NotEmpty(message = "Employee Contact is Manedetory") @Size(min = 10, max = 10) String empCONO) {
+	public Employee(Integer empId, String empName, String empDepartment, String empAddress, String empCONO) {
 		super();
 		EmpId = empId;
 		EmpName = empName;

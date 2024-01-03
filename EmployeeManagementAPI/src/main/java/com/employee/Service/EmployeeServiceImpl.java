@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.employee.Model.Employee;
 import com.employee.Repository.EmployeeRepository;
 
-
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -35,23 +34,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee UpdateEmployeeById(Integer EmpId, Employee employee) {
 		if (empRepo.existsById(EmpId)) {
-			Employee existingEmployee = empRepo.findById(EmpId).orElse(null);
-			if (existingEmployee != null) {
-				existingEmployee.setEmpName(employee.getEmpName());
-				existingEmployee.setEmpDepartment(employee.getEmpDepartment());
-				existingEmployee.setEmpAddress(employee.getEmpAddress());
-				existingEmployee.setEmpCONO(employee.getEmpCONO());
-				empRepo.save(existingEmployee);
-				return existingEmployee;
-			}
+			employee.setEmpId(EmpId);
+			return empRepo.save(employee);
 		}
-		return null; 
+		return null;
 	}
 
 	@Override
 	public boolean DeleteEmployeeById(Integer EmpId) {
 		Optional<Employee> empfind = empRepo.findById(EmpId);
 		if (empfind.isPresent()) {
+			empRepo.deleteById(EmpId);
 			return true;
 		} else {
 			return false;
