@@ -47,9 +47,11 @@ public class EmpController {
 	public ResponseEntity<?> updateEmployeeDetail(@PathVariable Integer EmpId , @RequestBody Employee employee){
 		Employee exEmp = empService.getEmployeeById(EmpId);
 		
+		
 		if(exEmp == null) {
 			return new ResponseEntity<>("Employee not found", HttpStatus.NOT_FOUND);
 		}
+		
 		exEmp.setEmpName(exEmp.getEmpName());
 		exEmp.setEmpDepartment(exEmp.getEmpDepartment());
 		exEmp.setEmpAddress(exEmp.getEmpAddress());
@@ -58,6 +60,5 @@ public class EmpController {
 		Employee emp = empService.postEmp(exEmp);
 		return new ResponseEntity<>(emp,HttpStatus.OK);
 	}
-	
 
 }
